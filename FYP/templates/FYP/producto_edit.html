@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edicion de Productos</title>
+</head>
+<body>
+    
+    <div>
+        {% if producto %}
+        <h2>Editar un producto</h2>
+        
+        <form action="{% url 'productoUpdate'%}" method="POST">
+            {% csrf_token %}
+
+            <pre>Nombre del Producto:               <input type="text" name="nombre" value="{{ producto.product_name }}"></pre>
+            <pre>Precio:                            <input type="number" name="precio" value="{{ producto.precio }}"></pre>
+            <pre>Stock del Producto:                <input type="number" name="stock" value="{{ producto.stock }}"></pre>
+
+            <pre>Tipo del Producto:
+                <select name="tipo_producto">
+                    {% for tipo in tipo_productos %}
+                    <option value="{{ tipo.prduct_type_id }}" {% if tipo.prduct_type_id == producto.prduct_type_id %} selected {% endif %}>
+                        {{ tipo.tipo_producto_nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </pre>
+
+            <pre>ID del Producto:                    <input type="text" name="ID" value="{{ producto.product_id }}"></pre>
+            <pre>Imagen del Producto:               <input type="text" name="imagen" value="{{ producto.product_img }}"></pre>
+
+            <input type="submit" value="Actualizar">
+        </form>
+        {% endif %}
+    </div>
+
+</body>
+</html>
